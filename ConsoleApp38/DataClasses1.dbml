@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Location_DataBase" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-PAMPD92\SQLEXPRESS;Initial Catalog=Location_DataBase;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="ConsoleApp38.Properties.Settings" SettingsPropertyName="Location_DataBaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.connexion" Member="connexions">
+    <Type Name="connexion">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.reservation" Member="reservations">
+    <Type Name="reservation">
+      <Column Name="id_reservation" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_voiture" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="id_client" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="date_debut" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="date_fin" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="montant" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="avance" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="reste" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="voiture_reservation" Member="voiture" ThisKey="id_voiture" OtherKey="id_voiture" Type="voiture" IsForeignKey="true" />
+      <Association Name="client_reservation" Member="client" ThisKey="id_client" OtherKey="id_client" Type="client" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.voiture" Member="voitures">
+    <Type Name="voiture">
+      <Column Name="id_voiture" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="marque" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="modele" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="annee_acquisition" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="prix" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="matricule" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="voiture_reservation" Member="reservations" ThisKey="id_voiture" OtherKey="id_voiture" Type="reservation" />
+      <Association Name="voiture_maintenance" Member="maintenances" ThisKey="id_voiture" OtherKey="id_voiture" Type="maintenance" />
+    </Type>
+  </Table>
+  <Table Name="dbo.maintenance" Member="maintenances">
+    <Type Name="maintenance">
+      <Column Name="id_maintenance" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="date_debut" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="date_fin" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="id_voiture" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="voiture_maintenance" Member="voiture" ThisKey="id_voiture" OtherKey="id_voiture" Type="voiture" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.client" Member="clients">
+    <Type Name="client">
+      <Column Name="id_client" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="prenom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="cin" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="client_reservation" Member="reservations" ThisKey="id_client" OtherKey="id_client" Type="reservation" />
+    </Type>
+  </Table>
+</Database>
