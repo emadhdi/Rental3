@@ -40,7 +40,7 @@ namespace ConsoleApp38
 
         private void ClientBtn_Click(object sender, EventArgs e)
         {
-            ClientForm Client1 = new ClientForm();
+            ClientForm1 Client1 = new ClientForm1();
             this.Hide();
             Client1.Show();
         }
